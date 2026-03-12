@@ -1,34 +1,26 @@
+// app/api/reset-password/route.ts
 import { NextResponse } from "next/server";
-import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "@/lib/firebase"; // путь к твоему firebase.ts
 
 export async function POST(req: Request) {
   try {
-    const { email } = await req.json();
+    const body = await req.json();
+    const email = body.email;
 
     if (!email) {
-      return NextResponse.json(
-        { error: "Введите email" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Email обязателен" }, { status: 400 });
     }
 
-    // Отправляем письмо через Firebase
-    await sendPasswordResetEmail(auth, email);
+    const token = Math.random().toString(36).substring(2);
+    const resetLink = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`;
+
+    console.log("Ссылка для сброса пароля:", resetLink);
 
     return NextResponse.json({
-      message: "Письмо для сброса пароля отправлено на вашу почту",
+      message: "Ссылка для сброса создана (проверь консоль сервера)",
+      link: resetLink,
     });
-
-  } catch (error: any) {
+  } catch (error) {
     console.error("Reset password error:", error);
-
-    let message = "Ошибка при отправке письма";
-
-    if (error.code === "auth/user-not-found") {
-      message = "Пользователь с таким email не найден";
-    }
-
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: "Ошибка сервера" }, { status: 500 });
   }
 }
