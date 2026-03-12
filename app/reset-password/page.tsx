@@ -1,5 +1,5 @@
-// app/reset-password/page.tsx
-"use client"; // для интерактивности на клиенте
+"use client";
+
 import { useState } from "react";
 
 export default function ResetPasswordPage() {
@@ -18,7 +18,7 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "0 auto", padding: "2rem" }}>
+    <div style={{ maxWidth: 400, margin: "0 auto", padding: "2rem" }}>
       <h1>Сброс пароля</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -27,9 +27,9 @@ export default function ResetPasswordPage() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          style={{ width: "100%", marginBottom: "1rem", padding: "0.5rem" }}
+          style={{ width: "100%", padding: 8, marginBottom: 12 }}
         />
-        <button type="submit" style={{ width: "100%", padding: "0.5rem" }}>
+        <button type="submit" style={{ width: "100%", padding: 8 }}>
           Отправить
         </button>
       </form>
