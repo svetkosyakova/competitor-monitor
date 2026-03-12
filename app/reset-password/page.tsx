@@ -1,37 +1,24 @@
-import { NextResponse } from "next/server";
+// app/reset-password/page.tsx
+'use client'
 
-export async function POST(req: Request) {
-  try {
+import { useState } from "react";
 
-    const body = await req.json();
-    const email = body.email;
+export default function ResetPasswordPage() {
+  const [email, setEmail] = useState("");
 
-    if (!email) {
-      return NextResponse.json(
-        { error: "Email обязателен" },
-        { status: 400 }
-      );
-    }
-
-    const token = Math.random().toString(36).substring(2);
-
-    const resetLink = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`;
-
-    console.log("Ссылка для сброса пароля:", resetLink);
-
-    return NextResponse.json({
-      message: "Ссылка для сброса создана (проверь консоль сервера)",
-      link: resetLink
-    });
-
-  } catch (error) {
-
-    console.error("Reset password error:", error);
-
-    return NextResponse.json(
-      { error: "Ошибка сервера" },
-      { status: 500 }
-    );
-
-  }
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl mb-4">Сброс пароля</h1>
+      <input
+        type="email"
+        placeholder="Введите ваш email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        className="border p-2 rounded w-full mb-3"
+      />
+      <button className="bg-blue-500 text-white p-2 rounded w-full">
+        Отправить ссылку
+      </button>
+    </div>
+  );
 }
