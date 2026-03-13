@@ -24,7 +24,7 @@ export default function Start() {
           </Link>
 
           <Link
-            href="/register"
+            href="/sign up"
             className="px-6 py-3 border border-white/20 rounded-lg hover:bg-white/10"
           >
             Register
