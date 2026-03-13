@@ -182,16 +182,24 @@ export default function DashboardPage() {
             </button>
 
             {showMenu && (
-              <div className="absolute right-0 mt-2 w-44 bg-white border rounded shadow z-10">
-                <p className="p-2 border-b">{user.email}</p>
-                <button
-                  className="w-full text-left p-2 hover:bg-gray-100"
-                  onClick={handleLogout}
-                >
-                  Выйти
-                </button>
-              </div>
-            )}
+  <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow z-10">
+    {/* Крестик закрытия */}
+    <button
+      onClick={() => setShowMenu(false)}
+      className="absolute top-1 right-1 text-gray-500 hover:text-black"
+    >
+      ✖
+    </button>
+
+    <p className="p-2 border-b">{user.email}</p>
+    <button
+      className="w-full text-left p-2 hover:bg-gray-100"
+      onClick={handleLogout}
+    >
+      Выйти
+    </button>
+  </div>
+)}
           </div>
         )}
       </div>
